@@ -12,3 +12,8 @@ test('validator exists and protects the curated stack', () => {
     assert.match(source, new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   }
 });
+
+test('skill makes recoverable UI state URL-owned', () => {
+  const source = readFileSync(new URL('./SKILL.md', root), 'utf8');
+  assert.match(source, /Query parameters are the default owner/);
+});

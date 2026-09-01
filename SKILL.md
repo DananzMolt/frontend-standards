@@ -5,7 +5,7 @@ license: "MIT; see LICENSE"
 compatibility: "Portable Agent Skills open-standard skill for coding agents. Intended for TypeScript, React, and Next.js repositories. Reading the repository and official package documentation may be required; installing packages and running project checks may require network and shell access."
 metadata:
   author: "Tomer Danan"
-  version: "1.0.1"
+  version: "1.0.2"
   derived-from: "emilkowalski/skills"
 ---
 
@@ -63,6 +63,15 @@ For a new project, use the house stack directly. In an existing project, do not 
 - Prefer `next/image`, `next/link`, `next/navigation`, Metadata APIs, Route Handlers, Server Actions, route layouts, `loading.tsx`, `error.tsx`, `not-found.tsx`, caching/revalidation, and `next/dynamic` when they directly solve the problem.
 - Do not duplicate ownership between the Next.js data cache and TanStack Query without a deliberate hydration and invalidation strategy.
 - Do not force a Next.js abstraction when a simple accessible React or web-platform solution is clearer.
+
+## URL state is the default
+
+Query parameters are the default owner for recoverable UI state: searches, filters, sorting, pagination, selected records, tabs, open dialogs, popovers, drawers, and inner multi-step flow state. Use `next/navigation` and the existing router conventions to keep URLs shareable, back/forward-correct, reload-safe, and deep-linkable.
+
+- Preserve unrelated query parameters and use explicit, stable names.
+- Use history replacement for high-frequency typing and history pushes for meaningful navigations or user-confirmed state changes.
+- Do not put transient animation, pointer, hover, focus, unsaved secret, or security-sensitive state in the URL.
+- Local component state remains correct for ephemeral visual state; URL state wins whenever the user could reasonably bookmark, share, restore, or navigate back to it.
 
 
 ## Responsive overlays are mandatory
