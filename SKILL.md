@@ -5,7 +5,7 @@ license: "MIT; see LICENSE"
 compatibility: "Portable Agent Skills open-standard skill for coding agents. Intended for TypeScript, React, and Next.js repositories. Reading the repository and official package documentation may be required; installing packages and running project checks may require network and shell access."
 metadata:
   author: "Tomer Danan"
-  version: "1.0.0"
+  version: "1.0.1"
   derived-from: "emilkowalski/skills"
 ---
 

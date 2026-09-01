@@ -13,6 +13,23 @@ An opinionated, portable Agent Skill for building and reviewing Next.js interfac
 
 The skill is derived in part from Emil Kowalski's MIT-licensed `pick-ui-library` and `apple-design` skills. See `NOTICE.md` and `LICENSE`.
 
+## Quick install, preferred
+
+Give your coding agent this prompt. It installs a project copy for both Codex and Claude Code, so the skill is checked into the project and shared with the team.
+
+```text
+Install the frontend-standards skill in this project for Codex and Claude Code. Run:
+npx skills add DananzMolt/frontend-standards --agent codex --agent claude-code --copy -y
+
+Then confirm the skill is present and read its SKILL.md before doing frontend work.
+```
+
+To install it only for the current agent, replace the two `--agent` values with that agent's name. To update later, run:
+
+```bash
+npx skills update frontend-standards -y
+```
+
 ## Package layout
 
 ```text
@@ -31,7 +48,7 @@ frontend-standards/
 
 The main `SKILL.md` contains only always-needed policy and routing. Detailed material lives in focused reference files so compatible agents can load it on demand.
 
-## Install to every supported coding agent
+## Other installation options
 
 From the directory containing `frontend-standards/`:
 
