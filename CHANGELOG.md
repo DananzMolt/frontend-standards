@@ -6,6 +6,7 @@ All notable changes are documented here.
 
 - Mapped every desktop overlay to its mobile drawer form, adding context menus, toolbar overflow, pickers, filters, share, preview cards, command palettes, detail panes, side navigation, and multi-step flows.
 - Listed the surfaces that stay out of drawers: tooltips, long forms and editors, and media lightboxes.
+- Fixed packaging on Linux CI, which failed because `ditto` only exists on macOS.
 
 ## 1.1.0 - 2026-10-08
 

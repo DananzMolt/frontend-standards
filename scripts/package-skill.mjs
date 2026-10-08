@@ -15,6 +15,7 @@ for (const entry of ['SKILL.md', 'README.md', 'CHANGELOG.md', 'LICENSE', 'NOTICE
 mkdirSync(dist, { recursive: true });
 const output = resolve(dist, 'frontend-standards.zip');
 rmSync(output, { force: true });
-execFileSync('ditto', ['-c', '-k', '--keepParent', stage, output]);
+if (process.platform === 'darwin') execFileSync('ditto', ['-c', '-k', '--keepParent', stage, output]);
+else execFileSync('zip', ['-r', '-q', output, 'frontend-standards'], { cwd: resolve(dist, '.stage') });
 rmSync(resolve(dist, '.stage'), { recursive: true, force: true });
 console.log(output);
