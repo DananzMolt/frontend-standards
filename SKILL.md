@@ -1,11 +1,11 @@
 ---
 name: frontend-standards
-description: Build, change, or review polished Next.js frontend UI with the team's opinionated stack and interaction rules. Use for Next.js pages, React components, frontend architecture, Base UI primitives, responsive dialogs and mobile Vaul drawers, Phosphor icons, Google Sans typography, Motion and Apple-style gestures, TanStack Query and optimistic mutations, Boneyard skeletons, animated numbers, accessibility, performance, or frontend-library selection.
+description: Build, change, or review polished Next.js frontend UI with the team's opinionated stack and interaction rules. Use for Next.js pages, React components, frontend architecture, Base UI primitives, responsive overlays (Base UI Dialog and Menu on desktop, Base UI Drawer on mobile), Phosphor icons, Google Sans typography, Motion and Apple-style gestures, TanStack Query and optimistic mutations, Boneyard skeletons, animated numbers, accessibility, performance, or frontend-library selection.
 license: "MIT; see LICENSE"
 compatibility: "Portable Agent Skills open-standard skill for coding agents. Intended for TypeScript, React, and Next.js repositories. Reading the repository and official package documentation may be required; installing packages and running project checks may require network and shell access."
 metadata:
   author: "Tomer Danan"
-  version: "1.0.2"
+  version: "1.1.0"
   derived-from: "emilkowalski/skills"
 ---
 
@@ -40,7 +40,7 @@ For a new project, use the house stack directly. In an existing project, do not 
 | --- | --- |
 | Framework and routing | Next.js, preserving the repository's existing App Router or Pages Router architecture |
 | UI primitives | Base UI |
-| Mobile drawers and sheets | Vaul |
+| Mobile drawers and sheets | Base UI Drawer (`@base-ui/react/drawer`) |
 | Icons | Phosphor Icons |
 | Typeface | Google Sans |
 | General and gesture motion | Motion for React (`motion/react`) |
@@ -76,14 +76,17 @@ Query parameters are the default owner for recoverable UI state: searches, filte
 
 ## Responsive overlays are mandatory
 
-Any dialog-like or compact selection surface must adapt to the input context:
+**Mobile gets drawers; desktop keeps dialogs and dropdowns.** Never show a centered dialog, dropdown menu, popover, or select listbox on mobile, and never show a bottom drawer for those tasks on desktop.
 
-- **Desktop:** use the appropriate Base UI primitive, such as Dialog, Alert Dialog, Menu, Popover, Select, Combobox, or Autocomplete.
-- **Mobile:** present the same task as a bottom Vaul Drawer with drag-to-dismiss and touch-sized actions.
+- **Desktop:** use the regular Base UI primitive for the task: Dialog, Alert Dialog, Menu, Popover, Select, Combobox, or Autocomplete.
+- **Mobile:** present the same task as a bottom Base UI Drawer (`@base-ui/react/drawer`) with swipe-to-dismiss, a visible swipe handle, and touch-sized actions. A dropdown's options become a list of full-width rows in the drawer; a confirmation becomes a drawer with its actions stacked at the bottom.
+- Decide mobile versus desktop in one place, using the repository's existing breakpoint hook (such as `useIsMobile`) or a single shared `matchMedia` hook, and build one shared responsive wrapper (for example `ResponsiveDialog` / `ResponsiveMenu`) instead of branching per call site.
 - Keep one source of truth for open state, selection, validation, and content. Do not render two live trigger controls or let desktop and mobile implementations drift.
 - Preserve focus return, labels, descriptions, keyboard navigation, dismissal behavior, and destructive-action safeguards.
+- Wrap drawers that contain form fields in `Drawer.VirtualKeyboardProvider` so inputs stay visible above the software keyboard.
 - When drawer content is inserted, removed, reordered, or changes height dynamically, attach `useAutoAnimate` to the stable content container.
-- Vaul is an explicit house choice. Do not silently replace it with another Drawer package merely because a newer primitive exists. Flag a concrete incompatibility rather than overriding the rule.
+- Exceptions: tooltips, hover cards, and small inline popovers that are not a task surface stay as they are.
+- Base UI Drawer is the house drawer. Do not add Vaul or another drawer package to new code. In an existing repository that already uses Vaul, follow the instruction priority above: keep it for incidental work and migrate to Base UI Drawer only when the task includes standardization or migration.
 
 
 ## Motion and direct manipulation
@@ -95,7 +98,7 @@ Use Emil Kowalski's Apple-style motion principles as a required design reference
 - Gesture feedback starts on pointer-down, tracks 1:1, preserves the grab offset, carries release velocity into the destination spring, and remains interruptible and reversible.
 - Use momentum-aware snap points, progressive rubber-banding beyond bounds, and critically damped springs by default. Bounce is earned by user-supplied momentum, not sprinkled on every transition.
 - Enter and exit along the same spatial path. Prefer transforms and opacity. Respect reduced-motion and reduced-transparency preferences.
-- Use Vaul's own gesture system for Vaul drawers. Do not layer a competing custom drag recognizer on top.
+- Use Base UI Drawer's own swipe, snap-point, and nested-drawer gesture system. Do not layer a competing custom drag recognizer on top.
 
 ### Shared animated icon component
 
@@ -158,7 +161,7 @@ Before finishing a frontend task, confirm the applicable items:
 
 - No duplicate component or dependency was introduced without checking the repository.
 - Server/client boundaries and data-cache ownership are explicit.
-- Desktop and mobile overlay behavior both work.
+- Dialogs, menus, and selects render as Base UI Drawers on mobile and as regular dialogs and dropdowns on desktop, and both paths work.
 - The primary action is usable with keyboard, pointer, and touch; gestures have a non-gesture alternative.
 - Focus, labels, error messages, selected state, and reduced-motion behavior are accessible.
 - Hebrew/RTL layout works; animated numeric spans remain isolated LTR without a monospace font.

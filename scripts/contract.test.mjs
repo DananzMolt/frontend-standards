@@ -8,7 +8,7 @@ test('validator exists and protects the curated stack', () => {
   const validator = new URL('./validate-skill.mjs', import.meta.url);
   assert.equal(existsSync(validator), true);
   const source = readFileSync(new URL('./SKILL.md', root), 'utf8');
-  for (const name of ['Next.js', 'Base UI', 'Vaul', 'Motion for React', 'Auto Animate', 'Phosphor Icons', 'Google Sans', 'TanStack Query', 'Boneyard', 'NumberFlow', 'Sonner', 'Zustand', 'Virtuoso', 'dnd-kit', 'Recharts', 'Liveline']) {
+  for (const name of ['Next.js', 'Base UI', 'Base UI Drawer', 'Motion for React', 'Auto Animate', 'Phosphor Icons', 'Google Sans', 'TanStack Query', 'Boneyard', 'NumberFlow', 'Sonner', 'Zustand', 'Virtuoso', 'dnd-kit', 'Recharts', 'Liveline']) {
     assert.match(source, new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   }
 });
@@ -16,4 +16,10 @@ test('validator exists and protects the curated stack', () => {
 test('skill makes recoverable UI state URL-owned', () => {
   const source = readFileSync(new URL('./SKILL.md', root), 'utf8');
   assert.match(source, /Query parameters are the default owner/);
+});
+
+test('skill uses drawers on mobile and dialogs or dropdowns on desktop', () => {
+  const source = readFileSync(new URL('./SKILL.md', root), 'utf8');
+  assert.match(source, /Mobile gets drawers; desktop keeps dialogs and dropdowns/);
+  assert.match(source, /@base-ui\/react\/drawer/);
 });

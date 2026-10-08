@@ -19,7 +19,7 @@ else {
     if (skillDir.split('/').at(-1) !== 'frontend-standards') fail('skill directory must be named frontend-standards.');
   }
   if (/@[\w./-]+-(?:alpha|beta|canary|next|rc)(?:[.-]\w+)?\b/i.test(text)) fail('skill guidance must not recommend prerelease dependencies.');
-  for (const library of ['Next.js', 'Base UI', 'Vaul', 'Motion for React', 'Auto Animate', 'Phosphor Icons', 'Google Sans', 'TanStack Query', 'Boneyard', 'NumberFlow', 'Sonner', 'Zustand', 'Virtuoso', 'dnd-kit', 'Recharts', 'Liveline']) {
+  for (const library of ['Next.js', 'Base UI', 'Base UI Drawer', 'Motion for React', 'Auto Animate', 'Phosphor Icons', 'Google Sans', 'TanStack Query', 'Boneyard', 'NumberFlow', 'Sonner', 'Zustand', 'Virtuoso', 'dnd-kit', 'Recharts', 'Liveline']) {
     if (!text.includes(library)) fail(`curated library missing: ${library}`);
   }
   for (const match of text.matchAll(/\[[^\]]+\]\((?!https?:|mailto:|#)([^)]+)\)/g)) {

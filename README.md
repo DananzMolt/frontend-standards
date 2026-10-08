@@ -3,7 +3,7 @@
 An opinionated, portable Agent Skill for building and reviewing Next.js interfaces with the team's approved stack:
 
 - Next.js-first architecture
-- Base UI on desktop and Vaul drawers on mobile
+- Base UI everywhere: regular dialogs and dropdowns on desktop, Base UI Drawers on mobile
 - Phosphor Icons with animated regular-to-fill state transitions
 - Google Sans, no monospace, no custom letter spacing
 - Motion and Apple-style direct manipulation
