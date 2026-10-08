@@ -22,4 +22,7 @@ test('skill uses drawers on mobile and dialogs or dropdowns on desktop', () => {
   const source = readFileSync(new URL('./SKILL.md', root), 'utf8');
   assert.match(source, /Mobile gets drawers; desktop keeps dialogs and dropdowns/);
   assert.match(source, /@base-ui\/react\/drawer/);
+  for (const surface of ['Context Menu', 'Preview Card', 'Command palette', 'Navigation Menu', 'Nested drawers']) {
+    assert.match(source, new RegExp(surface));
+  }
 });

@@ -2,6 +2,11 @@
 
 All notable changes are documented here.
 
+## 1.1.1 - 2026-10-08
+
+- Mapped every desktop overlay to its mobile drawer form, adding context menus, toolbar overflow, pickers, filters, share, preview cards, command palettes, detail panes, side navigation, and multi-step flows.
+- Listed the surfaces that stay out of drawers: tooltips, long forms and editors, and media lightboxes.
+
 ## 1.1.0 - 2026-10-08
 
 - Replaced Vaul with Base UI Drawer as the house mobile drawer.
